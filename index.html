@@ -3,54 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Countdown 💍</title>
+  <title>Contagem para o Casamento 💍</title>
   <style>
+    /* ===== Fundo animado ===== */
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ffe0e0, #fffaf0);
-      color: #333;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
       text-align: center;
+      background: linear-gradient(-45deg, #ffe0e0, #fffaf0, #ffe0ff, #e0ffff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+      color: #333;
     }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
     h1 { font-size: 2.5em; margin-bottom: 20px; }
-    #countdown { font-size: 2.5em; font-weight: bold; margin-bottom: 20px; }
+    #countdown { font-size: 3em; font-weight: bold; margin-bottom: 20px; display: flex; gap: 10px; }
+    #countdown span { display: inline-block; transform: scale(1); transition: transform 0.3s ease; }
     p { font-size: 1.5em; }
+
+    /* ===== Confetti ===== */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      top: -10px;
+      animation: fall linear forwards;
+      opacity: 0.8;
+      border-radius: 50%;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* ===== Mensagem de hoje ===== */
+    #todayMessage {
+      font-size: 3em;
+      color: #ff3366;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 1s ease;
+      position: absolute;
+    }
+    #todayMessage.show {
+      opacity: 1;
+      transform: scale(1);
+    }
   </style>
 </head>
 <body>
-  <h1>Faltam</h1>
-  <div id="countdown"></div>
-  <p>Para o casório de <strong>Morão & Catarina 💕</strong></p>
+  <h1>Faltam...</h1>
+  <div id="countdown">
+    <span id="days">0d</span>
+    <span id="hours">0h</span>
+    <span id="minutes">0m</span>
+    <span id="seconds">0s</span>
+  </div>
+  <p>para o casamento de <strong>Morão & Catarina 💕</strong></p>
+  <div id="todayMessage">É HOJE! 💍🎉</div>
 
   <script>
-    const weddingDate = new Date("2027-07-31T15:00:00"); // hora do casamento (ajusta se quiseres)
-    const countdown = document.getElementById("countdown");
+    const weddingDate = new Date("2027-07-31T15:00:00");
+    const countdown = {
+      days: document.getElementById("days"),
+      hours: document.getElementById("hours"),
+      minutes: document.getElementById("minutes"),
+      seconds: document.getElementById("seconds")
+    };
+    const todayMessage = document.getElementById("todayMessage");
+
+    function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
+      confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 3000);
+    }
 
     function updateCountdown() {
       const now = new Date();
       const diff = weddingDate - now;
 
       if (diff <= 0) {
-        countdown.textContent = "É HOJE! 💍🎉";
-        clearInterval(interval);
+        countdown.days.textContent = countdown.hours.textContent = countdown.minutes.textContent = countdown.seconds.textContent = "";
+        todayMessage.classList.add("show");
+        // cria confetti contínuo
+        setInterval(createConfetti, 100);
         return;
       }
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff / (1000*60*60)) % 24);
+      const minutes = Math.floor((diff / (1000*60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      countdown.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      // animação simples de "bounce" nos números
+      function animate(span) {
+        span.style.transform = "scale(1.3)";
+        setTimeout(() => { span.style.transform = "scale(1)"; }, 300);
+      }
+
+      countdown.days.textContent = days + "d"; animate(countdown.days);
+      countdown.hours.textContent = hours + "h"; animate(countdown.hours);
+      countdown.minutes.textContent = minutes + "m"; animate(countdown.minutes);
+      countdown.seconds.textContent = seconds + "s"; animate(countdown.seconds);
     }
 
     updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
