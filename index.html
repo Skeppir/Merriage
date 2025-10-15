@@ -37,11 +37,10 @@
       position: absolute;
       width: 10px;
       height: 10px;
-      background-color: red;
+      border-radius: 50%;
       top: -10px;
       animation: fall linear forwards;
       opacity: 0.8;
-      border-radius: 50%;
     }
 
     @keyframes fall {
@@ -65,36 +64,17 @@
       transform: scale(1);
     }
 
-    /* ===== Corações flutuantes ===== */
-    .heart {
+    /* ===== Ícones flutuantes ===== */
+    .icon {
       position: absolute;
-      width: 15px;
-      height: 15px;
-      background-color: pink;
-      transform: rotate(45deg);
-      animation: floatHeart linear forwards;
-    }
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      background-color: pink;
-      border-radius: 50%;
-    }
-    .heart::before {
-      top: -7.5px;
-      left: 0;
-    }
-    .heart::after {
-      left: 7.5px;
-      top: 0;
+      font-size: 20px;
+      opacity: 0.8;
+      animation: floatIcon linear forwards;
     }
 
-    @keyframes floatHeart {
-      0% {transform: translateY(0) rotate(45deg); opacity:1;}
-      100% {transform: translateY(-100vh) rotate(45deg); opacity:0;}
+    @keyframes floatIcon {
+      0% { transform: translateY(100vh) rotate(0deg); opacity:1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity:0; }
     }
   </style>
 </head>
@@ -118,26 +98,32 @@
       seconds: document.getElementById("seconds")
     };
     const todayMessage = document.getElementById("todayMessage");
+    const iconsArray = ["❤️","🎸","🍺","🦁"];
 
+    // ===== Funções para animações =====
     function createConfetti() {
       const confetti = document.createElement("div");
       confetti.classList.add("confetti");
       confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.width = confetti.style.height = (Math.random()*8+8) + "px";
       confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
-      confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      confetti.style.animationDuration = (Math.random()*3 + 2) + "s";
       document.body.appendChild(confetti);
       setTimeout(() => confetti.remove(), 3000);
     }
 
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.style.left = Math.random() * window.innerWidth + "px";
-      heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
+    function createFloatingIcon() {
+      const icon = document.createElement("span");
+      icon.classList.add("icon");
+      icon.textContent = iconsArray[Math.floor(Math.random()*iconsArray.length)];
+      icon.style.left = Math.random() * window.innerWidth + "px";
+      icon.style.fontSize = (Math.random()*24 + 16) + "px";
+      icon.style.animationDuration = (Math.random()*5 + 5) + "s";
+      document.body.appendChild(icon);
+      setTimeout(() => icon.remove(), 7000);
     }
 
+    // ===== Countdown =====
     function updateCountdown() {
       const now = new Date();
       const diff = weddingDate - now;
@@ -146,7 +132,7 @@
         countdown.days.textContent = countdown.hours.textContent = countdown.minutes.textContent = countdown.seconds.textContent = "";
         todayMessage.classList.add("show");
         setInterval(createConfetti, 100);
-        setInterval(createHeart, 300);
+        setInterval(createFloatingIcon, 300);
         return;
       }
 
@@ -164,9 +150,10 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // Corações flutuando contínuos
-    setInterval(createHeart, 1000);
+    // Ícones flutuantes contínuos
+    setInterval(createFloatingIcon, 1000);
   </script>
 </body>
 </html>
+
 
