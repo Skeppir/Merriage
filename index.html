@@ -3,23 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Countdown 💍</title>
+  <title>Catarina e Diogo 💍</title>
+
+  <!-- Fonte elegante -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
   <style>
-    /* ===== Fundo animado ===== */
-    body {
+    /* ===== Reset ===== */
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
       text-align: center;
+      color: #333;
       background: linear-gradient(-45deg, #ffe0e0, #fffaf0, #ffe0ff, #e0ffff);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
-      overflow: hidden;
-      color: #333;
     }
 
     @keyframes gradientBG {
@@ -28,9 +31,80 @@
       100% {background-position: 0% 50%;}
     }
 
-    h1 { font-size: 2.5em; margin-bottom: 20px; }
-    #countdown { font-size: 3em; font-weight: bold; margin-bottom: 20px; display: flex; gap: 10px; }
-    p { font-size: 1.5em; }
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    #countdown {
+      font-size: 2.5em;
+      font-weight: 600;
+      display: flex;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    #countdown span {
+      background: rgba(255,255,255,0.6);
+      padding: 15px 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    .names {
+      font-size: 1.5em;
+      margin-top: 15px;
+    }
+
+    /* ===== INFO SECTION ===== */
+    .info {
+      padding: 100px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .info h2 {
+      font-size: 2.5em;
+      margin-bottom: 50px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(12px);
+      padding: 40px;
+      border-radius: 25px;
+      margin-bottom: 40px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card h3 {
+      margin-bottom: 15px;
+      font-size: 1.5em;
+    }
+
+    .card p {
+      font-size: 1.1em;
+      margin: 5px 0;
+    }
 
     /* ===== Confetti ===== */
     .confetti {
@@ -41,6 +115,7 @@
       top: -10px;
       animation: fall linear forwards;
       opacity: 0.8;
+      pointer-events: none;
     }
 
     @keyframes fall {
@@ -50,7 +125,21 @@
       }
     }
 
-    /* ===== Mensagem de hoje ===== */
+    /* ===== Floating Icons ===== */
+    .icon {
+      position: absolute;
+      font-size: 20px;
+      opacity: 0.8;
+      animation: floatIcon linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatIcon {
+      0% { transform: translateY(100vh) rotate(0deg); opacity:1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity:0; }
+    }
+
+    /* ===== Today Message ===== */
     #todayMessage {
       font-size: 3em;
       color: #ff3366;
@@ -59,102 +148,130 @@
       transition: all 1s ease;
       position: absolute;
     }
+
     #todayMessage.show {
       opacity: 1;
       transform: scale(1);
     }
 
-    /* ===== Ícones flutuantes ===== */
-    .icon {
-      position: absolute;
-      font-size: 20px;
-      opacity: 0.8;
-      animation: floatIcon linear forwards;
-    }
-
-    @keyframes floatIcon {
-      0% { transform: translateY(100vh) rotate(0deg); opacity:1; }
-      100% { transform: translateY(-100vh) rotate(360deg); opacity:0; }
-    }
   </style>
 </head>
+
 <body>
-  <h1>Faltam</h1>
-  <div id="countdown">
-    <span id="days">0d</span>
-    <span id="hours">0h</span>
-    <span id="minutes">0m</span>
-    <span id="seconds">0s</span>
-  </div>
-  <p>Para o casório de <strong>Morão & Catarina 💕</strong></p>
-  <div id="todayMessage">É HOJE! 💍🎉</div>
 
-  <script>
-    const weddingDate = new Date("2027-07-31T15:00:00");
-    const countdown = {
-      days: document.getElementById("days"),
-      hours: document.getElementById("hours"),
-      minutes: document.getElementById("minutes"),
-      seconds: document.getElementById("seconds")
-    };
-    const todayMessage = document.getElementById("todayMessage");
-    const iconsArray = ["❤️","🎸","🍺","🦁"];
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Faltam</h1>
 
-    // ===== Funções para animações =====
-    function createConfetti() {
-      const confetti = document.createElement("div");
-      confetti.classList.add("confetti");
-      confetti.style.left = Math.random() * window.innerWidth + "px";
-      confetti.style.width = confetti.style.height = (Math.random()*8+8) + "px";
-      confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
-      confetti.style.animationDuration = (Math.random()*3 + 2) + "s";
-      document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 3000);
+    <div id="countdown">
+      <span id="days">0d</span>
+      <span id="hours">0h</span>
+      <span id="minutes">0m</span>
+      <span id="seconds">0s</span>
+    </div>
+
+    <div class="names">
+      Para o casamento de <strong>Catarina e Diogo 💕</strong>
+    </div>
+
+    <div id="todayMessage">É HOJE! 💍🎉</div>
+  </section>
+
+  <!-- INFO -->
+  <section class="info">
+    <h2>Detalhes do Grande Dia 💒</h2>
+
+    <div class="card">
+      <h3>Cerimónia</h3>
+      <p>31 de Julho de 2027</p>
+      <p>15:00</p>
+      <p>Igreja de São Qualquer Coisa</p>
+      <p>Lisboa</p>
+    </div>
+
+    <div class="card">
+      <h3>Festa 🎉</h3>
+      <p>Quinta Muito Bonita</p>
+      <p>Início às 17:30</p>
+      <p>Jantar, Música e Surpresas</p>
+    </div>
+
+    <div class="card">
+      <h3>Mensagem 💌</h3>
+      <p>
+        Estamos muito felizes por partilhar este dia convosco.
+        Preparem-se para celebrar, rir e criar memórias inesquecíveis!
+      </p>
+    </div>
+  </section>
+
+<script>
+  const weddingDate = new Date("2027-07-31T15:00:00");
+  const countdown = {
+    days: document.getElementById("days"),
+    hours: document.getElementById("hours"),
+    minutes: document.getElementById("minutes"),
+    seconds: document.getElementById("seconds")
+  };
+  const todayMessage = document.getElementById("todayMessage");
+  const iconsArray = ["❤️","🎸","🍺","🦁"];
+
+  function createConfetti() {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random() * window.innerWidth + "px";
+    confetti.style.width = confetti.style.height = (Math.random()*8+8) + "px";
+    confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
+    confetti.style.animationDuration = (Math.random()*3 + 2) + "s";
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 3000);
+  }
+
+  function createFloatingIcon() {
+    const icon = document.createElement("span");
+    icon.classList.add("icon");
+    icon.textContent = iconsArray[Math.floor(Math.random()*iconsArray.length)];
+    icon.style.left = Math.random() * window.innerWidth + "px";
+    icon.style.fontSize = (Math.random()*24 + 16) + "px";
+    icon.style.animationDuration = (Math.random()*5 + 5) + "s";
+    document.body.appendChild(icon);
+    setTimeout(() => icon.remove(), 7000);
+  }
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = weddingDate - now;
+
+    if (diff <= 0) {
+      countdown.days.textContent = "";
+      countdown.hours.textContent = "";
+      countdown.minutes.textContent = "";
+      countdown.seconds.textContent = "";
+      todayMessage.classList.add("show");
+      setInterval(createConfetti, 100);
+      setInterval(createFloatingIcon, 300);
+      return;
     }
 
-    function createFloatingIcon() {
-      const icon = document.createElement("span");
-      icon.classList.add("icon");
-      icon.textContent = iconsArray[Math.floor(Math.random()*iconsArray.length)];
-      icon.style.left = Math.random() * window.innerWidth + "px";
-      icon.style.fontSize = (Math.random()*24 + 16) + "px";
-      icon.style.animationDuration = (Math.random()*5 + 5) + "s";
-      document.body.appendChild(icon);
-      setTimeout(() => icon.remove(), 7000);
-    }
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const minutes = Math.floor((diff / (1000*60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
-    // ===== Countdown =====
-    function updateCountdown() {
-      const now = new Date();
-      const diff = weddingDate - now;
+    countdown.days.textContent = days + "d";
+    countdown.hours.textContent = hours + "h";
+    countdown.minutes.textContent = minutes + "m";
+    countdown.seconds.textContent = seconds + "s";
+  }
 
-      if (diff <= 0) {
-        countdown.days.textContent = countdown.hours.textContent = countdown.minutes.textContent = countdown.seconds.textContent = "";
-        todayMessage.classList.add("show");
-        setInterval(createConfetti, 100);
-        setInterval(createFloatingIcon, 300);
-        return;
-      }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+  setInterval(createFloatingIcon, 1200);
+</script>
 
-      const days = Math.floor(diff / (1000*60*60*24));
-      const hours = Math.floor((diff / (1000*60*60)) % 24);
-      const minutes = Math.floor((diff / (1000*60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      countdown.days.textContent = days + "d";
-      countdown.hours.textContent = hours + "h";
-      countdown.minutes.textContent = minutes + "m";
-      countdown.seconds.textContent = seconds + "s";
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    // Ícones flutuantes contínuos
-    setInterval(createFloatingIcon, 1000);
-  </script>
 </body>
 </html>
+
 
 
 
