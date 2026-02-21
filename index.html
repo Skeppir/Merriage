@@ -1,278 +1,227 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catarina e Diogo 💍</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morão & Catarina</title>
 
-  <!-- Fonte elegante -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <style>
-    /* ===== Reset ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      text-align: center;
-      color: #333;
-      background: linear-gradient(-45deg, #ffe0e0, #fffaf0, #ffe0ff, #e0ffff);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-    }
+body {
+  font-family: 'Inter', sans-serif;
+  background:#fdfaf7;
+  color:#2c2c2c;
+  line-height:1.6;
+}
 
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
+section {
+  padding:100px 20px;
+  max-width:1000px;
+  margin:auto;
+  text-align:center;
+}
 
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
-    }
+h1,h2,h3 {
+  font-family:'Playfair Display', serif;
+}
 
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+h1 {
+  font-size:3.5rem;
+  margin-bottom:10px;
+}
 
-    .hero h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-    }
+.subtitle {
+  font-size:1.2rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  opacity:0.7;
+}
 
-    #countdown {
-      font-size: 2.5em;
-      font-weight: 600;
-      display: flex;
-      gap: 15px;
-      margin: 20px 0;
-    }
+#countdown {
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:40px;
+  font-size:1.5rem;
+}
 
-    #countdown span {
-      background: rgba(255,255,255,0.6);
-      padding: 15px 20px;
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
-    }
+#countdown div {
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.05);
+  min-width:90px;
+}
 
-    .names {
-      font-size: 1.5em;
-      margin-top: 15px;
-    }
+.hero {
+  background:linear-gradient(to bottom, #ffffff, #fdfaf7);
+  padding-top:150px;
+}
 
-    /* ===== INFO SECTION ===== */
-    .info {
-      padding: 100px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
+.details-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+  margin-top:60px;
+}
 
-    .info h2 {
-      font-size: 2.5em;
-      margin-bottom: 50px;
-    }
+.card {
+  background:white;
+  padding:40px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+  transition:0.3s;
+}
 
-    .card {
-      background: rgba(255,255,255,0.75);
-      backdrop-filter: blur(12px);
-      padding: 40px;
-      border-radius: 25px;
-      margin-bottom: 40px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-      transition: transform 0.3s ease;
-    }
+.card:hover {
+  transform:translateY(-8px);
+}
 
-    .card:hover {
-      transform: translateY(-8px);
-    }
+.map-container {
+  margin-top:40px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
 
-    .card h3 {
-      margin-bottom: 15px;
-      font-size: 1.5em;
-    }
+iframe {
+  width:100%;
+  height:400px;
+  border:0;
+}
 
-    .card p {
-      font-size: 1.1em;
-      margin: 5px 0;
-    }
+.rsvp form {
+  margin-top:40px;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  max-width:400px;
+  margin-left:auto;
+  margin-right:auto;
+}
 
-    /* ===== Confetti ===== */
-    .confetti {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      top: -10px;
-      animation: fall linear forwards;
-      opacity: 0.8;
-      pointer-events: none;
-    }
+input, select {
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  font-size:1rem;
+}
 
-    @keyframes fall {
-      to {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
+button {
+  padding:12px;
+  border:none;
+  background:#2c2c2c;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+}
 
-    /* ===== Floating Icons ===== */
-    .icon {
-      position: absolute;
-      font-size: 20px;
-      opacity: 0.8;
-      animation: floatIcon linear forwards;
-      pointer-events: none;
-    }
+button:hover {
+  opacity:0.85;
+}
 
-    @keyframes floatIcon {
-      0% { transform: translateY(100vh) rotate(0deg); opacity:1; }
-      100% { transform: translateY(-100vh) rotate(360deg); opacity:0; }
-    }
-
-    /* ===== Today Message ===== */
-    #todayMessage {
-      font-size: 3em;
-      color: #ff3366;
-      opacity: 0;
-      transform: scale(0);
-      transition: all 1s ease;
-      position: absolute;
-    }
-
-    #todayMessage.show {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-  </style>
+footer {
+  padding:40px;
+  text-align:center;
+  background:#f2ede9;
+  font-size:0.9rem;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Faltam</h1>
+<section class="hero">
+  <h1>Morão & Catarina</h1>
+  <div class="subtitle">31 Julho 2027 • Lisboa</div>
 
-    <div id="countdown">
-      <span id="days">0d</span>
-      <span id="hours">0h</span>
-      <span id="minutes">0m</span>
-      <span id="seconds">0s</span>
-    </div>
+  <div id="countdown">
+    <div><span id="days">0</span><br>Dias</div>
+    <div><span id="hours">0</span><br>Horas</div>
+    <div><span id="minutes">0</span><br>Min</div>
+    <div><span id="seconds">0</span><br>Seg</div>
+  </div>
+</section>
 
-    <div class="names">
-      Para o casamento de <strong>Catarina e Diogo 💕</strong>
-    </div>
-
-    <div id="todayMessage">É HOJE! 💍🎉</div>
-  </section>
-
-  <!-- INFO -->
-  <section class="info">
-    <h2>Detalhes do Grande Dia 💒</h2>
-
+<section>
+  <h2>O Grande Dia</h2>
+  <div class="details-grid">
     <div class="card">
       <h3>Cerimónia</h3>
-      <p>31 de Julho de 2027</p>
       <p>15:00</p>
-      <p>Igreja de São Qualquer Coisa</p>
+      <p>Igreja de São Exemplo</p>
       <p>Lisboa</p>
     </div>
 
     <div class="card">
-      <h3>Festa 🎉</h3>
+      <h3>Festa</h3>
+      <p>17:30</p>
       <p>Quinta Muito Bonita</p>
-      <p>Início às 17:30</p>
-      <p>Jantar, Música e Surpresas</p>
+      <p>Jantar & Música</p>
     </div>
 
     <div class="card">
-      <h3>Mensagem 💌</h3>
-      <p>
-        Estamos muito felizes por partilhar este dia convosco.
-        Preparem-se para celebrar, rir e criar memórias inesquecíveis!
-      </p>
+      <h3>Dress Code</h3>
+      <p>Formal Elegante</p>
     </div>
-  </section>
+  </div>
+</section>
+
+<section>
+  <h2>Localização</h2>
+  <div class="map-container">
+    <!-- Substituir src pelo embed real do Google Maps -->
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3111.8408723..."
+      loading="lazy">
+    </iframe>
+  </div>
+</section>
+
+<section class="rsvp">
+  <h2>Confirmação de Presença</h2>
+
+  <form>
+    <input type="text" placeholder="Nome completo" required>
+    <select required>
+      <option value="">Vai estar presente?</option>
+      <option>Sim, claro!</option>
+      <option>Infelizmente não</option>
+    </select>
+    <input type="number" placeholder="Número de acompanhantes">
+    <button type="submit">Enviar</button>
+  </form>
+</section>
+
+<footer>
+  Feito com amor 🤍 • Morão & Catarina 2027
+</footer>
 
 <script>
-  const weddingDate = new Date("2027-07-31T15:00:00");
-  const countdown = {
-    days: document.getElementById("days"),
-    hours: document.getElementById("hours"),
-    minutes: document.getElementById("minutes"),
-    seconds: document.getElementById("seconds")
-  };
-  const todayMessage = document.getElementById("todayMessage");
-  const iconsArray = ["❤️","🎸","🍺","🦁"];
+const weddingDate = new Date("2027-07-31T15:00:00");
 
-  function createConfetti() {
-    const confetti = document.createElement("div");
-    confetti.classList.add("confetti");
-    confetti.style.left = Math.random() * window.innerWidth + "px";
-    confetti.style.width = confetti.style.height = (Math.random()*8+8) + "px";
-    confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
-    confetti.style.animationDuration = (Math.random()*3 + 2) + "s";
-    document.body.appendChild(confetti);
-    setTimeout(() => confetti.remove(), 3000);
-  }
+function updateCountdown() {
+  const now = new Date();
+  const diff = weddingDate - now;
 
-  function createFloatingIcon() {
-    const icon = document.createElement("span");
-    icon.classList.add("icon");
-    icon.textContent = iconsArray[Math.floor(Math.random()*iconsArray.length)];
-    icon.style.left = Math.random() * window.innerWidth + "px";
-    icon.style.fontSize = (Math.random()*24 + 16) + "px";
-    icon.style.animationDuration = (Math.random()*5 + 5) + "s";
-    document.body.appendChild(icon);
-    setTimeout(() => icon.remove(), 7000);
-  }
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff / (1000*60*60)) % 24);
+  const minutes = Math.floor((diff / (1000*60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
 
-  function updateCountdown() {
-    const now = new Date();
-    const diff = weddingDate - now;
+  document.getElementById("days").textContent = days;
+  document.getElementById("hours").textContent = hours;
+  document.getElementById("minutes").textContent = minutes;
+  document.getElementById("seconds").textContent = seconds;
+}
 
-    if (diff <= 0) {
-      countdown.days.textContent = "";
-      countdown.hours.textContent = "";
-      countdown.minutes.textContent = "";
-      countdown.seconds.textContent = "";
-      todayMessage.classList.add("show");
-      setInterval(createConfetti, 100);
-      setInterval(createFloatingIcon, 300);
-      return;
-    }
-
-    const days = Math.floor(diff / (1000*60*60*24));
-    const hours = Math.floor((diff / (1000*60*60)) % 24);
-    const minutes = Math.floor((diff / (1000*60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    countdown.days.textContent = days + "d";
-    countdown.hours.textContent = hours + "h";
-    countdown.minutes.textContent = minutes + "m";
-    countdown.seconds.textContent = seconds + "s";
-  }
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-  setInterval(createFloatingIcon, 1200);
+updateCountdown();
+setInterval(updateCountdown,1000);
 </script>
 
 </body>
 </html>
-
-
-
-
-
